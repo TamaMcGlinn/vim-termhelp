@@ -33,6 +33,9 @@ find . -type f -iname CMakeLists.txt
 ## Examples
 
 !["Animated gif of terminal where user types in wrong find command and then corrects it with Chat terminal_correction twice"](https://i.imgur.com/zkuC0o3.gif)
+
+Note the typo 'zstsd' - it knows we mean zstd:
+
 !["Animated gif of terminal where user generates a complicated tar command from a text prompt"](https://i.imgur.com/eWvawLx.gif)
 
 ![happy man on retro poster with the slogan "Thinking now optional"](https://i.imgur.com/JgAdujk.png)
