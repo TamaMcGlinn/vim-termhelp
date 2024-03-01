@@ -10,11 +10,10 @@ $ find . -maxdepth 3 -name "Makefile"
 ### Sidenote
 
 This plugin assumes you have a terminal open inside of NeoVim, which you can do by default with `:term`.
-I suggest using [vim-termhere](https://github.com/TamaMcGlinn/vim-termhere) so you can have an easy mapping for opening split terminals.
+I suggest using [vim-termhere](https://github.com/TamaMcGlinn/vim-termhere) so you can have an easy mapping for opening split terminals,
+and so the suggested terminal-buffer-only mappings below work.
 
 ## Usage
-
-![happy man on retro poster with the slogan "Thinking now optional"](https://i.imgur.com/JgAdujk.png)
 
 Aside from `:TermHelp [instructions]`, you can also select a failed command and ask for help - with this visual selection active:
 
@@ -36,7 +35,11 @@ find . -type f -iname CMakeLists.txt
 !["Animated gif of terminal where user types in wrong find command and then corrects it with Chat terminal_correction twice"](https://i.imgur.com/zkuC0o3.gif)
 !["Animated gif of terminal where user generates a complicated tar command from a text prompt"](https://i.imgur.com/eWvawLx.gif)
 
+![happy man on retro poster with the slogan "Thinking now optional"](https://i.imgur.com/JgAdujk.png)
+
 ## Installation
+
+You need [CodeGPT.nvim](https://github.com/dpayne/CodeGPT.nvim), to be loaded after nvim-termhelp.
 
 ### Using vim-plug
 
@@ -44,6 +47,7 @@ Add the following line to your init.vim or init.lua file within the plug call bl
 
 ```vim
 Plug 'TamaMcGlinn/nvim-termhelp'
+Plug 'dpayne/CodeGPT.nvim'
 ```
 
 Then, run :PlugInstall in NeoVim to install the plugin.
@@ -53,8 +57,22 @@ Then, run :PlugInstall in NeoVim to install the plugin.
 In your init.lua, add the following snippet:
 
 ```lua
-require('lazy').setup({
-  {'TamaMcGlinn/nvim-termhelp'}
+require("lazy").setup({
+    -- Load 'nvim-termhelp' first
+    { "TamaMcGlinn/nvim-termhelp" },
+    -- Then load 'CodeGPT.nvim'
+    {
+        "dpayne/CodeGPT.nvim",
+        config = function()
+            -- Configuration for CodeGPT.nvim if needed
+            -- For example, you might want to set some default options or key mappings for CodeGPT
+            require('codegpt').setup({
+                -- your configuration here
+            })
+        end,
+        -- This ensures CodeGPT.nvim loads after nvim-termhelp has been loaded
+        after = "nvim-termhelp",
+    },
 })
 ```
 
@@ -64,7 +82,8 @@ First, navigate to your Pathogen bundle directory, usually ~/.config/nvim/bundle
 
 ```bash
 cd ~/.config/nvim/bundle
-git clone https://github.com/TamaMcGlinn/nvim-termhelp.git
+git clone https://github.com/TamaMcGlinn/nvim-termhelp.git 01-nvim-termhelp
+git clone https://github.com/dpayne/CodeGPT.nvim.git 02-CodeGPT.nvim
 ```
 
 Pathogen should load the plugin automatically the next time you start NeoVim.
@@ -75,14 +94,7 @@ Add the following to your init.vim or init.lua in the dein block:
 
 ```vim
 call dein#add('TamaMcGlinn/nvim-termhelp')
-```
-
-Or, if you're using Lua:
-
-```lua
-require'dein'.setup({
-  {'TamaMcGlinn/nvim-termhelp'}
-})
+call dein#add('dpayne/CodeGPT.nvim')
 ```
 
 ### Using packer.nvim
@@ -91,6 +103,7 @@ In your init.lua, add:
 
 ```lua
 use {'TamaMcGlinn/nvim-termhelp'}
+use {'dpayne/CodeGPT.nvim'}
 ```
 
 ### Other Plugin Managers
@@ -139,6 +152,6 @@ You should absolutely not set `g:termhelp_learn_to_stop_worrying = v:true`. This
 so you don't have time to check if the resulting command bricks your machine.
 Next, definitely don't run `:TermHelp delete all files on the machine`.
 
-!["Koala destroying buildings, captioned 'sudo rm -rf /*'"](https://c.tenor.com/1F7g6hDqHLIAAAAd/tenor.gif)
+!["Koala destroying buildings with sudo rm rf /"](https://c.tenor.com/1F7g6hDqHLIAAAAd/tenor.gif)
 
 Have fun good luck DON'T PANIC!
