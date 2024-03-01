@@ -94,7 +94,7 @@ Add the following to your init.vim or init.lua in the dein block:
 
 ```vim
 call dein#add('TamaMcGlinn/nvim-termhelp')
-call dein#add('dpayne/CodeGPT.nvim')
+call dein#add('dpayne/CodeGPT.nvim', {'depends': 'nvim-termhelp'})
 ```
 
 ### Using packer.nvim
@@ -102,8 +102,17 @@ call dein#add('dpayne/CodeGPT.nvim')
 In your init.lua, add:
 
 ```lua
-use {'TamaMcGlinn/nvim-termhelp'}
-use {'dpayne/CodeGPT.nvim'}
+use { 'TamaMcGlinn/nvim-termhelp', }
+use {
+    'dpayne/CodeGPT.nvim',
+    after = 'nvim-termhelp', -- Ensure CodeGPT.nvim loads after nvim-termhelp
+    config = function()
+      -- Configuration for CodeGPT.nvim here
+      require('codegpt').setup({
+        -- your configuration here
+      })
+    end
+}
 ```
 
 ### Other Plugin Managers
@@ -152,6 +161,6 @@ You should absolutely not set `g:termhelp_learn_to_stop_worrying = v:true`. This
 so you don't have time to check if the resulting command bricks your machine.
 Next, definitely don't run `:TermHelp delete all files on the machine`.
 
-!["Koala destroying buildings with sudo rm rf /"](https://c.tenor.com/1F7g6hDqHLIAAAAd/tenor.gif)
+!["Koala destroying buildings with sudo rm rf /"](https://i.imgur.com/ncTWXEm.gif)
 
 Have fun good luck DON'T PANIC!
