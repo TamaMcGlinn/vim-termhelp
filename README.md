@@ -164,6 +164,6 @@ You should absolutely not set `g:termhelp_learn_to_stop_worrying = v:true`. This
 so you don't have time to check if the resulting command bricks your machine.
 Next, definitely don't run `:TermHelp delete all files on the machine`.
 
-!["Koala destroying buildings with sudo rm rf /"](https://i.imgur.com/ncTWXEm.gif)
+!["Koala destroying buildings with sudo rm rf /"](https://i.imgur.com/Gr2BeM9.gif)
 
 Have fun good luck DON'T PANIC!
