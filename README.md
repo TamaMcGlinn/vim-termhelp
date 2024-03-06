@@ -140,7 +140,7 @@ or in lua:
 vim.api.nvim_command([[
 augroup termhelp
     autocmd FileType terminal nnoremap <buffer> <Leader>n :TermHelp<CR>
-    autocmd FileType terminal vnoremap <buffer> <Leader>n :Chat terminal_correction<CR>
+    autocmd FileType terminal vnoremap <buffer> <Leader>n :Chat terminal_correction
     autocmd FileType terminal vnoremap <buffer> <Leader>nn :Chat terminal_correction<CR>
 augroup END
 ]])
