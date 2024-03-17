@@ -1,9 +1,21 @@
 local TermHelp = {}
 
+function TermHelp.sanitize_command(lines)
+  if lines[1]:match('^```') then
+    -- remove first and last elements
+    local newLines = {}
+    for i = 2, #lines-1 do
+        sanitized_line = (lines[i]:gsub('^$ *', ''))
+        table.insert(newLines, sanitized_line)
+    end
+    lines = newLines
+  end
+  single_line = table.concat(lines, ';')
+  return single_line
+end
+
 function TermHelp.terminal_insert_callback(lines)
-  -- TODO occasionaly I've seen the output contain formatting, like ```bash\n```
-  -- strip it if it's there. Hard to test because it's not quite consistent
-  sanitized_command = table.concat(lines, ';')
+  sanitized_command = TermHelp.sanitize_command(lines)
   vim.api.nvim_feedkeys('a' .. sanitized_command, '', '')
   if vim.g["termhelp_learn_to_stop_worrying"] then
     vim.api.nvim_feedkeys('\n', 'n', true)
